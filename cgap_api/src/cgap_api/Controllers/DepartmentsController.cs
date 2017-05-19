@@ -13,25 +13,25 @@ namespace cgap_api.Controllers
     [Route("api/[controller]")]
     public class DepartmentsController : Controller
     {
-        public IDepartmentsRepository DepRepo { get; set; }
+        private readonly IDepartmentsRepository _departmentsRepo;
 
-        public DepartmentsController(IDepartmentsRepository _DepRepo)
+        public DepartmentsController(IDepartmentsRepository departmentsRepo)
         {
-            DepRepo = _DepRepo;
+            _departmentsRepo = departmentsRepo;
         }
 
         // GET: api/values
         [HttpGet]
         public IEnumerable<Department> GetAll()
         {
-            return DepRepo.GetAll();
+            return _departmentsRepo.GetAll();
         }
 
         // GET api/values/5
         [HttpGet("{id}", Name = "GetDep")]
         public IActionResult GetById(int id)
         {
-            var item = DepRepo.Find(id);
+            var item = _departmentsRepo.Find(id);
             if (item == null)
             {
                 return NotFound();
@@ -49,7 +49,7 @@ namespace cgap_api.Controllers
                 return BadRequest();
             }
 
-            DepRepo.Add(item);
+            _departmentsRepo.Add(item);
 
             return CreatedAtRoute("GetDep", new { Controller = "Departments", id = item.DepartmentID }, item);
         }
@@ -62,12 +62,12 @@ namespace cgap_api.Controllers
             {
                 return BadRequest();
             }
-            var itemToUpdate = DepRepo.Find(id);
+            var itemToUpdate = _departmentsRepo.Find(id);
             if (itemToUpdate == null)
             {
                 return NotFound();
             }
-            DepRepo.Update(itemToUpdate, item);
+            _departmentsRepo.Update(itemToUpdate, item);
             return new NoContentResult();
         }
 
@@ -75,7 +75,7 @@ namespace cgap_api.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            DepRepo.Remove(id);
+            _departmentsRepo.Remove(id);
         }
     }
 }

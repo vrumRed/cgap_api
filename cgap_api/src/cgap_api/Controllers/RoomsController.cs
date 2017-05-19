@@ -13,25 +13,25 @@ namespace cgap_api.Controllers
     [Route("api/[controller]")]
     public class RoomsController : Controller
     {
-        public IRoomsRepository RoomRepo { get; set; }
+        public IRoomsRepository _roomsRepo { get; set; }
 
-        public RoomsController(IRoomsRepository _RoomRepo)
+        public RoomsController(IRoomsRepository roomsRepo)
         {
-            RoomRepo = _RoomRepo;
+            _roomsRepo = roomsRepo;
         }
 
         // GET: api/values
         [HttpGet]
         public IEnumerable<Room> GetAll()
         {
-            return RoomRepo.GetAll();
+            return _roomsRepo.GetAll();
         }
 
         // GET api/values/5
         [HttpGet("{id}", Name = "GetRooms")]
         public IActionResult Get(int id)
         {
-            var item = RoomRepo.Find(id);
+            var item = _roomsRepo.Find(id);
 
             if (item == null)
                 return BadRequest();
@@ -47,7 +47,7 @@ namespace cgap_api.Controllers
             {
                 return BadRequest();
             }
-            RoomRepo.Add(item);
+            _roomsRepo.Add(item);
 
             return CreatedAtRoute("GetRooms", new { controller = "Rooms", id = item.RoomID }, item);
         }
@@ -60,12 +60,12 @@ namespace cgap_api.Controllers
             {
                 return BadRequest();
             }
-            var itemToUpdate = RoomRepo.Find(id);
+            var itemToUpdate = _roomsRepo.Find(id);
             if (itemToUpdate == null)
             {
                 return NotFound();
             }
-            RoomRepo.Update(itemToUpdate, item);
+            _roomsRepo.Update(itemToUpdate, item);
             return new NoContentResult();
         }
 
@@ -73,7 +73,7 @@ namespace cgap_api.Controllers
         [HttpPost("{id}")]
         public void Delete(int id)
         {
-            RoomRepo.Remove(id);
+            _roomsRepo.Remove(id);
         }
     }
 }

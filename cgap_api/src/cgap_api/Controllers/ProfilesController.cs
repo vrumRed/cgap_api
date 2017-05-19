@@ -13,25 +13,25 @@ namespace cgap_api.Controllers
     [Route("api/[controller]")]
     public class ProfilesController : Controller
     {
-        public IProfilesRepository ProfilesRepo { get; set; }
+        private readonly IProfilesRepository _profilesRepo;
 
-        public ProfilesController(IProfilesRepository _ProfilesRepo)
+        public ProfilesController(IProfilesRepository profilesRepo)
         {
-            ProfilesRepo = _ProfilesRepo;
+            _profilesRepo = profilesRepo;
         }
 
         // GET: api/values
         [HttpGet]
         public IEnumerable<Profile> GetAll()
         {
-            return ProfilesRepo.GetAll();
+            return _profilesRepo.GetAll();
         }
 
         // GET api/values/5
         [HttpGet("{id}", Name = "GetProfiles")]
         public IActionResult GetById(int id)
         {
-            var item = ProfilesRepo.Find(id);
+            var item = _profilesRepo.Find(id);
 
             if (item == null)
             {
@@ -50,7 +50,7 @@ namespace cgap_api.Controllers
                 return BadRequest();
             }
 
-            ProfilesRepo.Add(item);
+            _profilesRepo.Add(item);
 
             return CreatedAtRoute("GetProfiles", new { Controller = "Profiles", id = item.ProfileID }, item);
         }
@@ -63,12 +63,12 @@ namespace cgap_api.Controllers
             {
                 return BadRequest();
             }
-            var itemToUpdate = ProfilesRepo.Find(id);
+            var itemToUpdate = _profilesRepo.Find(id);
             if (itemToUpdate == null)
             {
                 return NotFound();
             }
-            ProfilesRepo.Update(itemToUpdate, item);
+            _profilesRepo.Update(itemToUpdate, item);
             return new NoContentResult();
         }
 
@@ -76,7 +76,7 @@ namespace cgap_api.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            ProfilesRepo.Remove(id);
+            _profilesRepo.Remove(id);
         }
     }
 }

@@ -13,25 +13,25 @@ namespace cgap_api.Controllers
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
-        public IUsersRepository UsersRepo { get; set; }
+        private readonly IUsersRepository _usersRepo;
 
-        public UsersController(IUsersRepository _UsersRepo)
+        public UsersController(IUsersRepository usersRepo)
         {
-            UsersRepo = _UsersRepo;
+            _usersRepo = usersRepo;
         }
 
         // GET: api/values
         [HttpGet]
         public IEnumerable<User> GetAll()
         {
-            return UsersRepo.GetAll();
+            return _usersRepo.GetAll();
         }
 
         // GET api/values/5
         [HttpGet("{id}", Name = "GetUsuarios")]
         public IActionResult GetById(String id)
         {
-            var item = UsersRepo.Find(id);
+            var item = _usersRepo.Find(id);
             if (item == null)
             {
                 return NotFound();
@@ -48,7 +48,7 @@ namespace cgap_api.Controllers
             {
                 return BadRequest();
             }
-            UsersRepo.Add(item);
+            _usersRepo.Add(item);
             return CreatedAtRoute("GetUsuarios", new { Controller = "Usuarios", id = item.Id }, item);
 
         }
@@ -61,12 +61,12 @@ namespace cgap_api.Controllers
             {
                 return BadRequest();
             }
-            var itemToUpdate = UsersRepo.Find(id);
+            var itemToUpdate = _usersRepo.Find(id);
             if (itemToUpdate == null)
             {
                 return NotFound();
             }
-            UsersRepo.Update(itemToUpdate, item);
+            _usersRepo.Update(itemToUpdate, item);
             return new NoContentResult();
         }
 
@@ -74,7 +74,7 @@ namespace cgap_api.Controllers
         [HttpPost("{id}")]
         public void Delete(String id)
         {
-            UsersRepo.Remove(id);
+            _usersRepo.Remove(id);
         }
     }
 }

@@ -13,23 +13,23 @@ namespace cgap_api.Controllers
     [Route("api/[controller]")]
     public class ProductsController : Controller
     {
-        public IProductsRepository ProductsRepo { get; set; }
+        private readonly IProductsRepository _productsRepo;
 
-        public ProductsController(IProductsRepository _ProductsRepo)
+        public ProductsController(IProductsRepository productsRepo)
         {
-            ProductsRepo = _ProductsRepo;
+            _productsRepo = productsRepo;
         }
 
         [HttpGet]
         public IEnumerable<Product> GetAll()
         {
-            return ProductsRepo.GetAll();
+            return _productsRepo.GetAll();
         }
 
         [HttpGet("{id}", Name = "GetProducts")]
         public IActionResult GetById(int id)
         {
-            var item = ProductsRepo.Find(id);
+            var item = _productsRepo.Find(id);
             if (item == null)
             {
                 return NotFound();
@@ -44,7 +44,7 @@ namespace cgap_api.Controllers
             {
                 return BadRequest();
             }
-            ProductsRepo.Add(item);
+            _productsRepo.Add(item);
             return CreatedAtRoute("GetProducts", new { Controller = "Products", id = item.ProductID }, item);
         }
 
@@ -55,19 +55,19 @@ namespace cgap_api.Controllers
             {
                 return BadRequest();
             }
-            var itemToUpdate = ProductsRepo.Find(id);
+            var itemToUpdate = _productsRepo.Find(id);
             if (itemToUpdate == null)
             {
                 return NotFound();
             }
-            ProductsRepo.Update(itemToUpdate, item);
+            _productsRepo.Update(itemToUpdate, item);
             return new NoContentResult();
         }
 
         [HttpPost("{id}")]
         public void Delete(int id)
         {
-            ProductsRepo.Remove(id);
+            _productsRepo.Remove(id);
         }
     }
 }
