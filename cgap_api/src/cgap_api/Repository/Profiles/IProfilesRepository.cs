@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cgap_api.Repository.Profiles
 {
-    interface IProfilesRepository
+    public interface IProfilesRepository
     {
         void Add(Profile item);
         IEnumerable<Profile> GetAll();

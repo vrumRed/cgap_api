@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cgap_api.Repository.Products
 {
-    interface IProductsRepository
+    public interface IProductsRepository
     {
         void Add(Product item);
         IEnumerable<Product> GetAll();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cgap_api.Repository.Users
 {
-    interface IUsersRepository
+    public interface IUsersRepository
     {
         void Add(User item);
         IEnumerable<User> GetAll();

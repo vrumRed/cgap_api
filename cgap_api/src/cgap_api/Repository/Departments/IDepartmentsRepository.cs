@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cgap_api.Repository.Departments
 {
-    interface IDepartmentsRepository
+    public interface IDepartmentsRepository
     {
         void Add(Department item);
         IEnumerable<Department> GetAll();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cgap_api.Repository.Rooms
 {
-    interface IRoomsRepository
+    public interface IRoomsRepository
     {
         void Add(Room item);
         IEnumerable<Room> GetAll();
