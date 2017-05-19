@@ -10,7 +10,7 @@ namespace cgap_api.Repository.Departments
     {
         void Add(Department item);
         IEnumerable<Department> GetAll();
-        Deparament Find(int key);
+        Department Find(int key);
         void Remove(int Id);
         void Update(Department itemToUpdate, Department item);
     }
