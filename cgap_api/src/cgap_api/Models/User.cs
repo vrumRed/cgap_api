@@ -12,9 +12,6 @@ namespace cgap_api.Models
     public class User : IdentityUser
     {
         public string Name { get; set; }
-
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
         
         public string Birthdate { get; set; }
 
