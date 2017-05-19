@@ -8,7 +8,7 @@ namespace cgap_api.Models
 {
     public class Department
     {
-        public int DepartamentID { get; set; }
+        public int DepartmentID { get; set; }
 
         public string Name { get; set; }
 
