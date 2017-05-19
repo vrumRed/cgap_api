@@ -24,7 +24,7 @@ namespace cgap_api.Repository.Products
 
         public Product Find(int key)
         {
-            var item = context.Products.SingleOrDefault(p => p.ProdutoID == id);
+            var item = context.Products.SingleOrDefault(p => p.ProductID == key);
             return item;
         }
 

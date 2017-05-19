@@ -10,8 +10,8 @@ namespace cgap_api.Repository.Users
     {
         void Add(User item);
         IEnumerable<User> GetAll();
-        User Find(int key);
-        void Remove(int Id);
+        User Find(String key);
+        void Remove(String Id);
         void Update(User itemToUpdate, User item);
     }
 }

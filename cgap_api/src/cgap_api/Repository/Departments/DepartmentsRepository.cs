@@ -25,7 +25,7 @@ namespace cgap_api.Repository.Departments
 
         public Department Find(int key)
         {
-            var item = context.Departments.SingleOrDefault(d => d.DepartamentoID == id);
+            var item = context.Departments.SingleOrDefault(d => d.DepartmentID == key);
             return item;
         }
 

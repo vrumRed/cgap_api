@@ -22,9 +22,9 @@ namespace cgap_api.Repository.Users
             context.SaveChanges();
         }
 
-        public User Find(int key)
+        public User Find(String key)
         {
-            var item = context.Users.SingleOrDefault(u => u.UsuarioID == id);
+            var item = context.Users.SingleOrDefault(u => u.Id == key);
             return item;
         }
 
@@ -33,7 +33,7 @@ namespace cgap_api.Repository.Users
             return context.Users.ToList();
         }
 
-        public void Remove(int Id)
+        public void Remove(String Id)
         {
             var item = Find(Id);
             if (item != null)

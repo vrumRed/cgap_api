@@ -24,7 +24,7 @@ namespace cgap_api.Repository.Rooms
 
         public Room Find(int key)
         {
-            var item = context.Rooms.SingleOrDefault(s => s.SalaID == id);
+            var item = context.Rooms.SingleOrDefault(s => s.RoomID == key);
             return item;
         }
 

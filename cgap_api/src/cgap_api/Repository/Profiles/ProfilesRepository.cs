@@ -24,7 +24,7 @@ namespace cgap_api.Repository.Profiles
 
         public Profile Find(int key)
         {
-            var item = context.Profiles.SingleOrDefault(p => p.PerfilID == id);
+            var item = context.Profiles.SingleOrDefault(p => p.ProfileID == key);
             return item;
         }
 
