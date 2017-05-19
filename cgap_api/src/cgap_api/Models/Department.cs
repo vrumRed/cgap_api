@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,5 +8,20 @@ namespace cgap_api.Models
 {
     public class Department
     {
+        public int DepartamentID { get; set; }
+
+        public string Name { get; set; }
+
+        public string Country { get; set; }
+
+        public string State { get; set; }
+
+        public string City { get; set; }
+
+        [NotMapped]
+        public ICollection<Room> Rooms { get; set; }
+
+        [NotMapped]
+        public ICollection<User> Users { get; set; }
     }
 }
