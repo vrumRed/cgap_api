@@ -20,7 +20,7 @@ namespace cgap_api.Data
                 .WithMany(d => d.Users)
                 .HasForeignKey(u => u.DepartmentID)
                 .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("ForeignKey_User_Document");
+                .HasConstraintName("ForeignKey_User_Department");
 
             builder.Entity<User>()
                 .HasOne(u => u.Profile)
