@@ -11,6 +11,12 @@ using cgap_api.Data;
 using Microsoft.EntityFrameworkCore;
 using cgap_api.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using cgap_api.Repository.Departments;
+using cgap_api.Repository.Products;
+using cgap_api.Repository.Profiles;
+using cgap_api.Repository.Rooms;
+using cgap_api.Repository.Users;
+using Newtonsoft.Json.Serialization;
 
 namespace cgap_api
 {
@@ -32,6 +38,25 @@ namespace cgap_api
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
             services.AddMvc();
+            services.AddDbContext<ApplicationDbContext>(options =>
+             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // Add framework services.
+            services.AddMvc()
+                    .AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver()); ;
+
+            services.AddSingleton<IProductsRepository, ProductsRepository>();
+            services.AddSingleton<IDepartmentsRepository, DepartmentsRepository>();
+            services.AddSingleton<IProfilesRepository, ProfilesRepository>();
+            services.AddSingleton<IRoomsRepository, RoomsRepository>();
+            services.AddSingleton<IUsersRepository, UsersRepository>();
+            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder => builder.AllowAnyOrigin()
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod());
+            });
 
             services.AddIdentity<User, IdentityRole>(o => {
                 o.Password.RequireDigit = false;
@@ -48,20 +73,20 @@ namespace cgap_api
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            if (env.IsDevelopment())
+            app.UseCors(builder =>
             {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+                builder.AllowAnyOrigin();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            );
             app.UseStaticFiles();
-            app.UseIdentity();
-
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{ id?}");
+            });
         }
     }
 }
