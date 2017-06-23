@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:59321/api/departments",
+        url: "http://localhost:59321/api/profiles",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
@@ -11,11 +11,11 @@
             $.each(data, function (i, item) {
                 var rows = "<tr>" +
                     "<td id='Name'>" + item.name + "</td>" +
-                    "<td id='Country'>" + item.country + "</td>" +
-                    "<td id='State'>" + item.state + "</td>" +
-                    "<td id='City'>" + item.city + "</td>" +
+                    "<td id='Send'>" + item.send + "</td>" +
+                    "<td id='Receive'>" + item.receive + "</td>" +
+                    "<td id='Audit'>" + item.audit + "</td>" +
                     "</tr>";
-                $('#Table').append(rows);
+                $('#TableProfiles').append(rows);
             }); //End of foreach Loop   
             console.log(data);
         }, //End of AJAX Success function  
