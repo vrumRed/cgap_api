@@ -1,0 +1,22 @@
+﻿@*Reference to JQuery
+<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+<script src="~/Scripts/apiRequest.js"></script>
+<br />
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Departments
+    </div>
+    <br />
+    <span class="glyphicon glyphicon-plus col-md-1" aria-hidden="true"></span>
+    <a asp-action="Insert">Create New</a>   <!--en dof panel-heading -->
+    <div class="panel-body">
+        <table class="table table-bordered" id="Table">
+            <tr>
+                <th>Name</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+            </tr>   <!--end of table-row -->
+        </table>   <!--end of table -->
+    </div> <!--end of Panel-body -->
+</div> <!--end of Panel -->  
